@@ -88,7 +88,8 @@ module.exports = {
 
     name: 'ravi-config',
     description: `Configure server and database settings.`,
-    devOnly: true,
+    devOnly: false,
+    adminOnly: true,
     options: [
         {
             name: 'channel',

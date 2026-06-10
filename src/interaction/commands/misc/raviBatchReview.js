@@ -106,7 +106,8 @@ module.exports = {
 
     name: 'ravi-batch-review',
     description: `Review a batch's submission`,
-    devOnly: true,
+    devOnly: false,
+    adminOnly: false,
     // testOnly: Boolean,
     options: [
         {
@@ -125,10 +126,6 @@ module.exports = {
                 {
                     name: 'Batch 3',
                     value: '3',
-                },
-                {
-                    name: 'Batch 4',
-                    value: '4',
                 },
             ],
             required: true,

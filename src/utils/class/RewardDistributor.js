@@ -180,12 +180,11 @@ class RewardDistributor {
     const messages = [];
     const usersIds = Object.keys(this.batchData);
 
-    const members = await Promise.all(usersIds.map(id => this.interaction.guild.members.fetch(id)));
-    const users = members.map(member => member.user);
+    for (const userId of usersIds) {
+      const member = await this.interaction.guild.members.fetch(userId).catch(() => null);
+      if (!member) continue;
 
-    for (let i = 0; i < usersIds.length; i++) {
-      const userId = usersIds[i];
-      const user = users[i];
+      const user = member.user;
       const data = this.batchData[userId];
 
       const mention = `<@${userId}>`;
@@ -193,7 +192,7 @@ class RewardDistributor {
 
       const itemsField = '>>> ' + rewards.items.map(item => `${item.name} x${item.amount}`).join('\n');
 
-      const multiplier = parseFloat(data.bcMultiplier) ?? 0.0;
+      const multiplier = parseFloat(data.bcMultiplier) || 0.0;
       const bonusPercent = (100 * multiplier).toFixed(0); 
       const bonusAmount = (rewards.bountyCoins * (1.0 + multiplier)).toFixed(0);
 

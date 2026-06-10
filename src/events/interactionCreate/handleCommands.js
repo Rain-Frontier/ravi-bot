@@ -1,7 +1,7 @@
 "use strict";
 const path = require('path');
 const { MessageFlags } = require('discord.js');
-const { devs, testerRoles, testServer } = require('../../../config.json');
+const { devs, adminRole, testerRoles, testServer } = require('../../../config.json');
 const getLocalCommands = require('../../utils/getLocalCommands');
 const { getGuildConfig } = require('../../utils/configManager');
 
@@ -15,10 +15,23 @@ module.exports = async (client, interaction) => {
         const allowedRoles = guildConfig?.[commandObject.name] || [];
         if (!commandObject)return;
         
+        if (devs.includes(interaction.member.id) ) {
+            await commandObject.callback(client, interaction);
+            return;
+        }
         if (commandObject.devOnly) {
             if (!devs.includes(interaction.member.id)) {
                 interaction.reply({
                     content: 'Only developpers are allowed to run this command.',
+                    flags: MessageFlags.Ephemeral,
+                });
+                return;
+            }
+        }
+        if (commandObject.adminOnly) {
+            if (!interaction.member.roles.cache.has(adminRole)) {
+                interaction.reply({
+                    content: 'You do not have permission to run this command.',
                     flags: MessageFlags.Ephemeral,
                 });
                 return;

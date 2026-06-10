@@ -7,6 +7,7 @@ module.exports = {
 
     name: 'prev-page',
     description: 'Change the page on raviBatchReview command',
+    supervisor: false,
 
     /**
      * 

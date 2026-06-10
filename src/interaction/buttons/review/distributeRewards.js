@@ -128,5 +128,6 @@ module.exports = {
     },
 
     name: "batch-distribution",
-    description: "Distribute the rewards for the batch"
+    description: "Distribute the rewards for the batch",
+    supervisor: true,
 }

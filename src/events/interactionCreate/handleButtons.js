@@ -1,6 +1,6 @@
 "use strict";
 const { Client, Interaction, MessageFlags } = require('discord.js');
-const { devs } = require('../../../config.json');
+const { devs, supervisorRole } = require('../../../config.json');
 const { decodeCustomId } = require('../../utils/customId');
 const getLocalButtons = require('../../utils/getLocalButtons');
 
@@ -57,6 +57,15 @@ module.exports = async (client, interaction) => {
                     });
                     return;
                 }
+            }
+        }
+        if (buttonObject.supervisor) {
+            if (!interaction.member.roles.cache.has(supervisorRole)) {
+                interaction.reply({
+                    content: 'You do not have permission to run this command.',
+                    ephemeral: true,
+                });
+                return;
             }
         }
 

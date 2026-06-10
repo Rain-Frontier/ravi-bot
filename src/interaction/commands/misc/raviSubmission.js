@@ -70,7 +70,7 @@ module.exports = {
                 if (connection) connection.release();
             }
             
-            //Select in the database (discord table) the character_id, bounty & gacha to move ahead.
+            //Select in the database (discord table) the character_id, character_name to move ahead.
             const dbData = await getDbData(client.db, interaction.member.id);
     
             if (!dbData || !dbData.char_id) {
@@ -208,7 +208,12 @@ module.exports = {
                                         inline: true,
                                     },
                                     {
-                                        name: 'In-game Name',
+                                        name: 'Char ID',
+                                        value: `[${dbData.char_id}]`,
+                                        inline: true,
+                                    },
+                                    {
+                                        name: 'In-game name',
                                         value: dbData.inGameName,
                                         inline: true,
                                     },
@@ -280,6 +285,7 @@ module.exports = {
     name: 'ravi-submit',
     description: `Submission for the Raviente's raid event`,
     testing: false,
+    adminOnly: false,
     // testOnly: Boolean,
     options: [
         {
@@ -304,10 +310,6 @@ module.exports = {
                 {
                     name: 'Batch 3',
                     value: '3',
-                },
-                {
-                    name: 'Batch 4',
-                    value: '4',
                 },
             ],
             required: true,

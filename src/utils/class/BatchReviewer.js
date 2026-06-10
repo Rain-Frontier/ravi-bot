@@ -21,7 +21,8 @@ class BatchReviewer {
             this.players = Object.entries(batchData).map(([userId, data]) => ({
                 id: userId,
                 name: data.inGameName,
-            }));
+                char_id: data.char_id
+            })).sort((playerA, playerB) => playerA.name.localeCompare(playerB.name, undefined, { sensitivity: "base" }));
         
         } catch (err) {
             throw new Error('Error loading JSON files (BatchReview): ' + err.message);
@@ -63,7 +64,7 @@ class BatchReviewer {
         for (let page = 0; page < this.totalPages; page++) {
             const pagePlayers = this.getPlayerForPage(page);
             const playerList = pagePlayers
-                .map((p, i) => `\`${page * this.playersPerPage + i + 1}.\` ${p.name}`)
+                .map((p, i) => `\`${page * this.playersPerPage + i + 1}.\` ${p.name} \t\`[${p.char_id}]\``)
                 .join('\n') || '*No players*';
             
             fields.push({
@@ -88,7 +89,7 @@ class BatchReviewer {
         if (!players.length) return null;
 
         const options = players.map(player => ({
-            label: player.name,
+            label: `${player.name} [${player.char_id}]`,
             value: player.id,
             description: `ID: ${player.id}`,
         }));
@@ -126,7 +127,6 @@ class BatchReviewer {
                     'batch-confirm',
                     {
                         batchKey: `${this.batchKey}`,
-                        interactionUserId: `${this.interactionUser.id}`,
                     }
                 )}`)
                 .setLabel('Confirm')
@@ -138,7 +138,6 @@ class BatchReviewer {
                     'batch-delay',
                     {
                         batchKey: `${this.batchKey}`,
-                        interactionUserId: `${this.interactionUser.id}`,
                     }
                 )}`)
                 .setLabel('Delay')

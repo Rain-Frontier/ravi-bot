@@ -9,6 +9,7 @@ module.exports = {
 
     name: 'batch-confirm',
     description: 'Confirm the batch and send confirmation interaction',
+    supervisor: true,
 
     /**
      * 
@@ -62,7 +63,6 @@ module.exports = {
                     'batch-distribution',
                     {
                         batchKey: params.batchKey,
-                        interactionUserId: params.interactionUserId,
                     }
                     )}`)
                     .setLabel('Distribute')

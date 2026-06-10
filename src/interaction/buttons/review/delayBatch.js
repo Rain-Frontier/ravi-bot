@@ -9,6 +9,7 @@ module.exports = {
 
     name: 'batch-delay',
     description: 'Delay the batch reviewing',
+    supervisor: false,
 
     /**
      * 
