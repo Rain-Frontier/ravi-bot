@@ -41,7 +41,7 @@ This bot simplifies the submission, review, and logging process of player screen
    CLIENT_ID=your_client_id
    DB_USER=your_postgres_username
    DB_NAME=your_postgres_database_name
-   DB_NAME=your_postgres_database_ip
+   DB_HOST=your_postgres_database_ip
    DB_PASSWORD=your_postgres_password
    DB_PORT=your_postgres_port
 4. **Start the bot**
@@ -54,7 +54,7 @@ This bot simplifies the submission, review, and logging process of player screen
 
 ```file strucure
 config/
-├── config.json
+├── bot.json
 ├── rain.json
 node_modules/
 data/
