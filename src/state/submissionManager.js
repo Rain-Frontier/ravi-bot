@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { Mutex } = require('async-mutex');
 
-const filePath = path.resolve(__dirname, '../data/submission/submittedUsers.json');
+const filePath = path.resolve(process.cwd(), 'data/submission/submittedUsers.json');
 let cache = {};
 const mutex = new Mutex();
 

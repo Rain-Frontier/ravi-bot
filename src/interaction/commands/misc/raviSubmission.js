@@ -1,11 +1,11 @@
 "use strict";
 const { Interaction, ApplicationCommandOptionType,  Client, EmbedBuilder, MessageFlags } = require('discord.js');
-const { ownerInfos, submissionManager } = require('../../../state/globalState');
-const { sendLimiter } = require('../../../utils/globalLimiter')
-const { getDbData } = require('../../../utils/db/getDbData');
-const { getGuildConfig } = require('../../../utils/configManager');
-const { validateCommandAccess } = require('../../../utils/commandAccess');
-const { bountyBanRole } = require('../../../../config.json')
+const { ownerInfos, submissionManager } = require('@/src/state/globalState');
+const { sendLimiter } = require('@/src/utils/globalLimiter')
+const { getDbData } = require('@/src/utils/db/getDbData');
+const { getGuildConfig } = require('@/src/utils/configManager');
+const { validateCommandAccess } = require('@/src/utils/commandAccess');
+
 module.exports = {
     /**
      *
@@ -135,7 +135,7 @@ module.exports = {
                 return;
             }
             
-            if (interaction.member.roles.cache.has(bountyBanRole)) {
+            if (interaction.member.roles.cache.has(guildConfig.roles.bountyBan)) {
                 await interaction.editReply({
                     embeds: [new EmbedBuilder()
                                 .setAuthor({name: `${interaction.member.user.username}`, iconURL: `${userAvatarUrl}`})

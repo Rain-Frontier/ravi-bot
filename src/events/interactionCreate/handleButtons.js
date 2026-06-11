@@ -1,8 +1,8 @@
 "use strict";
 const { Client, Interaction, MessageFlags } = require('discord.js');
-const { devs, supervisorRole } = require('../../../config.json');
-const { decodeCustomId } = require('../../utils/customId');
-const getLocalButtons = require('../../utils/getLocalButtons');
+const { devs, supervisorRole } = require('@/config/bot.json');
+const { decodeCustomId } = require('@/src/utils/customId');
+const getLocalButtons = require('@/src/utils/getLocalButtons');
 
 /**
  * 

@@ -7,7 +7,7 @@ const path = require('path');
 let pool = null;
 
 function getDatabaseIP() {
-    const configPath = path.resolve(__dirname, '../../config.json');
+    const configPath = path.resolve('@/config/bot.json');
     const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
     return config.databaseIP;
 }
@@ -20,7 +20,7 @@ async function createPool() {
 
     pool = new Pool({
       user: process.env.DB_USER,
-      host: getDatabaseIP(),
+      host: process.env.DB_HOST,
       database: process.env.DB_NAME,
       password: process.env.DB_PASSWORD,
       port: parseInt(process.env.DB_PORT),

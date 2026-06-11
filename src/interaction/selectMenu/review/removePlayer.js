@@ -1,7 +1,7 @@
 "use strict" ;
 const { Client, Interaction, MessageFlags, EmbedBuilder } = require('discord.js');
-const { submissionManager, batchManager, ownerInfos} = require('../../../state/globalState');
-const { getGuildConfig } = require('../../../utils/configManager');
+const { submissionManager, batchManager, ownerInfos} = require('@/src/state/globalState');
+const { getGuildConfig } = require('@/src/utils/configManager');
 module.exports = {
 
     name: 'remove-player',

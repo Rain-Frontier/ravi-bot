@@ -1,8 +1,8 @@
 "use strict" ;
 const { Client, Interaction, ApplicationCommandOptionType, MessageFlags, EmbedBuilder } = require("discord.js");
-const { createPool, getPool, testConnection } = require('../../../utils/dbConnection');
-const { updateGuildConfig, updateConfig } = require('../../../utils/configManager');
-const { ownerInfos } = require('../../../state/globalState');
+const { createPool, getPool, testConnection } = require('@/src/utils/dbConnection');
+const { updateGuildConfig } = require('@/src/utils/configManager');
+const { ownerInfos } = require('@/src/state/globalState');
 
 module.exports = {
 
@@ -32,29 +32,6 @@ module.exports = {
                     flags: MessageFlags.Ephemeral
                 });
 
-            } else if (subcommand === 'database') {
-                await interaction.deferReply({ flags: MessageFlags.Ephemeral });
-                const type = interaction.options.getString('type');
-                const dataString = interaction.options.getString('data');
-
-                updateConfig((cfg) => {
-                    cfg[type] = dataString;
-                });
-
-                await createPool();
-                const isConnected = await testConnection();
-                client.db = await getPool();
-
-                if (isConnected) {
-    
-                    return await interaction.editReply({
-                        content: `✅ Database IP is now set to **${dataString}** and connection to it was restarted.`,
-                    });
-                } else {
-                    return await interaction.editReply({
-                        content: `⚠️ Database IP is now set to **${dataString}** but was unnable to connect to it. You will either have to restart the bot or change the IP with the same command.`,
-                    });
-                }
             }
         } catch (err) {
             const errorEmbeds = new EmbedBuilder()
@@ -111,28 +88,6 @@ module.exports = {
                     name: 'channel',
                     description: 'The channel to assign.',
                     type: ApplicationCommandOptionType.Channel,
-                    required: true
-                }
-            ]
-        },
-        {
-            name: 'database',
-            description: 'Change the database configs for the bot.',
-            type: ApplicationCommandOptionType.Subcommand,
-            options: [
-                {
-                    name: 'type',
-                    description: 'What data to configure.',
-                    type: ApplicationCommandOptionType.String,
-                    required: true,
-                    choices: [
-                        { name: 'Host', value: 'databaseIP'},
-                    ]
-                },
-                {
-                    name: 'data',
-                    description: 'The data to assign.',
-                    type: ApplicationCommandOptionType.String,
                     required: true
                 }
             ]

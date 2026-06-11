@@ -1,11 +1,10 @@
 const path = require('path');
-const { editLimiter, sendLimiter } = require('../../../utils/globalLimiter');
-const rewardDataPath = path.join(__dirname, '../../../data/review/raviRewards.json');
-const { submissionManager } = require('../../../state/globalState');
+const { editLimiter, sendLimiter } = require('@/src/utils/globalLimiter');
+const rewardDataPath = path.join(process.cwd(), 'data/review/raviRewards.json');
+const { submissionManager, ownerInfos } = require('@/src/state/globalState');
 const { Client, Interaction, ActionRowBuilder, ButtonBuilder, EmbedBuilder, MessageFlags } = require("discord.js");
-const RewardDistributor = require('../../../utils/class/RewardDistributor');
-const { getGuildConfig } = require('../../../utils/configManager');
-const { ownerInfos } = require('../../../state/globalState');
+const RewardDistributor = require('@/src/utils/class/RewardDistributor');
+const { getGuildConfig } = require('@/src/utils/configManager');
 
 module.exports = {
 

@@ -1,9 +1,9 @@
 "use strict";
 const path = require('path');
 const { MessageFlags } = require('discord.js');
-const { devs, adminRole, testerRoles, testServer } = require('../../../config.json');
-const getLocalCommands = require('../../utils/getLocalCommands');
-const { getGuildConfig } = require('../../utils/configManager');
+const { devs, testServer } = require('@/config/bot.json');
+const getLocalCommands = require('@/src/utils/getLocalCommands');
+const { getGuildConfig } = require('@/src/utils/configManager');
 
 module.exports = async (client, interaction) => {
     if (!interaction.isChatInputCommand()) return;
@@ -11,8 +11,8 @@ module.exports = async (client, interaction) => {
     const localCommands = getLocalCommands();
     try {
         const commandObject = localCommands.find((cmd) => cmd.name === interaction.commandName);
-        const guildConfig = getGuildConfig(interaction.guild.id)?.permissions;
-        const allowedRoles = guildConfig?.[commandObject.name] || [];
+        const guildConfig = getGuildConfig(interaction.guild.id);
+        const allowedRoles = guildConfig.permission?.[commandObject.name] || [];
         if (!commandObject)return;
         
         if (devs.includes(interaction.member.id) ) {
@@ -29,7 +29,7 @@ module.exports = async (client, interaction) => {
             }
         }
         if (commandObject.adminOnly) {
-            if (!interaction.member.roles.cache.has(adminRole)) {
+            if (!interaction.member.roles.cache.has(guildConfig.roles.admin)) {
                 interaction.reply({
                     content: 'You do not have permission to run this command.',
                     flags: MessageFlags.Ephemeral,
@@ -38,7 +38,7 @@ module.exports = async (client, interaction) => {
             }
         }
         if (commandObject.testing) {
-            if (!interaction.member.roles.cache.has(testerRoles)) {
+            if (!interaction.member.roles.cache.has(guildConfig.roles.tester)) {
                 return interaction.reply({
                     content: 'Only testers are allowed to run this command.',
                     flags: MessageFlags.Ephemeral,

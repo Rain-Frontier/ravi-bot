@@ -20,9 +20,6 @@ This bot simplifies the submission, review, and logging process of player screen
   - **Receptionist Channel** → where players submit their screenshot and in which batch they participated
   - **Review Channel** → where admins evaluate each batch
   - **Error Channel** → for bot execution and database error logs
-
-- 🛠️ `/ravi-config database`  
-  - **Host** → IP of the postgres database
  
 ---
 
@@ -44,6 +41,7 @@ This bot simplifies the submission, review, and logging process of player screen
    CLIENT_ID=your_client_id
    DB_USER=your_postgres_username
    DB_NAME=your_postgres_database_name
+   DB_NAME=your_postgres_database_ip
    DB_PASSWORD=your_postgres_password
    DB_PORT=your_postgres_port
 4. **Start the bot**
@@ -55,16 +53,17 @@ This bot simplifies the submission, review, and logging process of player screen
 ## 📁 Project Structure
 
 ```file strucure
-guild-data/
-├── guildData.json
+config/
+├── config.json
+├── rain.json
 node_modules/
+data/
+├── review
+│   ├── activeBatchReview.json
+│   └── raviRewards.json
+├── submission/
+│   └── submittedUsers.json
 src/
-├── data/
-│   ├── review
-│   │   ├── activeBatchReview.json
-│   │   └── raviRewards.json
-│   └── interactionCreate/
-│       └── submittedUsers.json
 ├── events/
 │   ├── interactionCreate/
 │   │    ├── handleButtons.js
@@ -109,7 +108,6 @@ src/
 │   └── configManager.js
 index.js
 .env
-config.json
 package-lock.json
 package.json
 ```

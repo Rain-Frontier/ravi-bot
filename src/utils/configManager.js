@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const guildConfigPath = path.join(__dirname, '../../guild-data/guildData.json');
-const databaseConfigPath = path.join(__dirname, '../../config.json');
+const guildConfigPath = path.join(process.cwd(), 'config/rain.json');
+const databaseConfigPath = path.join(process.cwd(), 'config/bot.json');
 let guildConfig = null;
 let config = null;
 
@@ -19,13 +19,23 @@ function saveConfig(cfg, chosenPath) {
     }
 }
 
+function ensureGuildConfig(cfg, guildId) {
+    cfg[guildId] ??= {};
+
+    cfg[guildId].channels ??= {};
+    cfg[guildId].roles ??= {};
+
+    return cfg[guildId];
+}
+
 function getGuildConfig(guildId) {
     const cfg = loadGuildConfig();
-    if (!cfg[guildId]) {
-        cfg[guildId]  = { channels: {} };
-        saveConfig(guildConfig, guildConfigPath);
-    }
-    return cfg[guildId];
+
+    const guild = ensureGuildConfig(cfg, guildId);
+
+    saveConfig(cfg, guildConfigPath);
+    
+    return guild;
 }
 
 function updateGuildConfig(guildId, updateFn) {

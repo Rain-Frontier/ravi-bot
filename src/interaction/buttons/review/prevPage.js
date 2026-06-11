@@ -1,7 +1,7 @@
 "use strict";
 const { Client, Interaction } = require("discord.js");
-const { batchManager, ownerInfos } = require('../../../state/globalState');
-const { getGuildConfig } = require('../../../utils/configManager');
+const { batchManager, ownerInfos } = require('@/src/state/globalState');
+const { getGuildConfig } = require('@/src/utils/configManager');
 
 module.exports = {
 

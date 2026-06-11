@@ -1,7 +1,7 @@
 "use strict";
-const getApplicationCommands = require('../../utils/getApplicationCommands');
-const getLocalCommands = require('../../utils/getLocalCommands');
-const areCommandsDifferent = require('../../utils/areCommandsDifferent');
+const getApplicationCommands = require('@/src/utils/getApplicationCommands');
+const getLocalCommands = require('@/src/utils/getLocalCommands');
+const areCommandsDifferent = require('@/src/utils/areCommandsDifferent');
 module.exports = async (client) => {
     try {
         const localCommands = getLocalCommands();

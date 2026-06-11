@@ -11,7 +11,7 @@
     "url": "git+https://github.com/Jerjoker007/discord-bot-js.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jerjoker007",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Jerjoker007/discord-bot-js/issues"
@@ -23,6 +23,10 @@
     "bottleneck": "^2.19.5",
     "discord.js": "^14.26.4",
     "dotenv": "^17.4.2",
+    "module-alias": "^2.3.4",
     "pg": "^8.21.0"
+  },
+  "_moduleAliases": {
+    "@": "."
   }
 }

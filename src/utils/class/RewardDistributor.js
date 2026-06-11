@@ -1,7 +1,7 @@
 "use strict";
 const fs = require('fs/promises');
 const path = require('path');
-const { submissionManager } = require('../../state/globalState');
+const { submissionManager } = require('@/src/state/globalState');
 const { EmbedBuilder } = require('discord.js');
 
 class RewardDistributor {
