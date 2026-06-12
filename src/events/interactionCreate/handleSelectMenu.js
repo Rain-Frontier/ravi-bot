@@ -34,7 +34,7 @@ module.exports = async (client, interaction) => {
             if (!devs.includes(interaction.member.id)) {
                 interaction.reply({
                     content: 'Only developpers are allowed to run this command.',
-                    ephemeral: true,
+                    flags: MessageFlags.Ephemeral,
                 });
                 return;
             }
@@ -43,7 +43,7 @@ module.exports = async (client, interaction) => {
             if (!(interaction.guild.id === testServer)) {
                 interaction.reply({
                     content: 'This command cannot be ran here.',
-                    ephemeral: true,
+                    flags: MessageFlags.Ephemeral,
                 });
                 return;
             }
@@ -53,7 +53,7 @@ module.exports = async (client, interaction) => {
                 if (!interaction.member.permissions.has(permission)) {
                     interaction.reply({
                         content: 'You do not have sufficient permission to run this command.',
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                     return;
                 }

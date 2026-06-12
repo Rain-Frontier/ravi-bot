@@ -3,6 +3,7 @@ const { Client, Interaction, MessageFlags } = require('discord.js');
 const { devs, supervisorRole } = require('@/config/bot.json');
 const { decodeCustomId } = require('@/src/utils/customId');
 const getLocalButtons = require('@/src/utils/getLocalButtons');
+const { getGuildConfig } = require('@/src/utils/configManager');
 
 /**
  * 
@@ -27,14 +28,14 @@ module.exports = async (client, interaction) => {
 
     try {
         const buttonObject = localButtons.find(btn => btn.name === action);
-    
+        const guildConfig = getGuildConfig(interaction.guild.id);
         if (!buttonObject) return;
 
         if (buttonObject.devOnly) {
             if (!devs.includes(interaction.member.id)) {
                 interaction.reply({
                     content: 'Only developpers are allowed to run this command.',
-                    ephemeral: true,
+                    flags: MessageFlags.Ephemeral,
                 });
                 return;
             }
@@ -43,7 +44,7 @@ module.exports = async (client, interaction) => {
             if (!(interaction.guild.id === testServer)) {
                 interaction.reply({
                     content: 'This command cannot be ran here.',
-                    ephemeral: true,
+                    flags: MessageFlags.Ephemeral,
                 });
                 return;
             }
@@ -53,17 +54,17 @@ module.exports = async (client, interaction) => {
                 if (!interaction.member.permissions.has(permission)) {
                     interaction.reply({
                         content: 'You do not have sufficient permission to run this command.',
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                     return;
                 }
             }
         }
         if (buttonObject.supervisor) {
-            if (!interaction.member.roles.cache.has(supervisorRole)) {
+            if (!interaction.member.roles.cache.has(guildConfig.roles.supervisor)) {
                 interaction.reply({
                     content: 'You do not have permission to run this command.',
-                    ephemeral: true,
+                    flags: MessageFlags.Ephemeral,
                 });
                 return;
             }
