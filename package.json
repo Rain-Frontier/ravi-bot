@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jerjoker007/discord-bot-js.git"
+    "url": "git+https://github.com/rain-frontier/ravi-bot.git"
   },
   "keywords": [],
   "author": "Jerjoker007",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Jerjoker007/discord-bot-js/issues"
+    "url": "https://github.com/rain-frontier/ravi-bot/issues"
   },
-  "homepage": "https://github.com/Jerjoker007/discord-bot-js#readme",
+  "homepage": "https://github.com/rain-frontier/ravi-bot#readme",
   "description": "",
   "dependencies": {
     "async-mutex": "^0.5.0",
